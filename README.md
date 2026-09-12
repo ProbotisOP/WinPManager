@@ -77,17 +77,52 @@ Port 5173 is in use, trying another one...
 
 ### 4. ⚡ Quick Port Terminator (Raycast-Style)
 - Hit the command bar, type `:3000` or `:5173`, and press `Enter ↵`.
-- Shows real-time occupancy status: `Occupied by node.exe (PID 1420)` or `Port available`.
+### 5. 🤖 Terminal EADDRINUSE Conflict Sentinel (Lightweight Microservice)
+- Whenever a terminal or PowerShell session crashes with `Error: listen EADDRINUSE :::3000` or `address already in use`:
+  - The Sentinel microservice immediately displays a sleek native Windows popup dialog showing the blocking process (`node.exe PID 1420`).
+  - Hit **[Kill Port 3000]** to instantly terminate the blocker with one click and rerun your command!
+  - Start the Sentinel daemon with double-clicking `launch-sentinel.bat` or running `npm run sentinel`.
+  - Also comes with a lightning-fast CLI: `winp <port>` (e.g. `winp 3000` to immediately free port 3000 from any terminal).
 
-### 5. 📌 Pinned Ports Status Strip
+### 6. 📌 Pinned Ports Status Strip
 - Live status indicators for standard developer ports (`:3000`, `:5173`, `:8000`, `:8080`, `:4200`, `:3306`, `:5432`).
 - Green status dot when free; amber dot with process name and 1-click termination `✕` button when occupied. Add any custom port to your pinned list.
 
-### 6. 🚀 Terminate All Dev Ports
+### 7. 🚀 Terminate All Dev Ports
 - Clear every active development server simultaneously with a single button.
 
-### 7. 🔍 Deep Process Inspector
+### 8. 🔍 Deep Process Inspector
 - Inspect full command-line arguments, memory RSS usage, bound network interfaces (`127.0.0.1` vs `0.0.0.0`), uptime, parent PID, and executable path.
+
+---
+
+## 📦 Generating Windows `.exe` & Releases
+
+WinPManager packages into production-grade Windows executables using `electron-builder`:
+
+### 1. Build Portable Executable (.exe)
+Generates a standalone single-file `.exe` that runs immediately on any Windows machine with no installation needed:
+```bash
+npm run dist:portable
+```
+Output: `release/WinPManager-Portable-1.0.0.exe`
+
+### 2. Build NSIS Windows Setup Installer
+Generates a standard Windows installer with Desktop shortcut, Start Menu shortcut, and Uninstaller:
+```bash
+npm run dist:nsis
+```
+Output: `release/WinPManager-Setup-1.0.0.exe`
+
+### 3. Automated GitHub Actions CI/CD Releases
+A GitHub Actions workflow is pre-configured in `.github/workflows/release.yml`. Whenever you push a git tag (e.g. `v1.0.0`), GitHub Actions will:
+1. Automatically build both the Portable `.exe` and NSIS Setup installer.
+2. Publish a GitHub Release with download links attached automatically.
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
 
 ---
 
@@ -98,6 +133,7 @@ Port 5173 is in use, trying another one...
 | **Search by Port Number** | ❌ No | ⚠️ Manual grep | ✅ Instant |
 | **Filter Out System Processes** | ❌ No | ❌ No | ✅ Yes (Automatic) |
 | **Recursive Tree Kill (`/T`)** | ❌ Kills single PID | ⚠️ Manual command | ✅ 1-Click Automatic |
+| **Terminal EADDRINUSE Interception** | ❌ No | ❌ No | ✅ Instant Popup |
 | **Framework & Project Detection** | ❌ No | ❌ No | ✅ Auto (Vite, Next, etc.) |
 | **Open Localhost in Browser** | ❌ No | ❌ No | ✅ 1-Click Button |
 | **Reveal Project in Explorer** | ❌ No | ❌ No | ✅ 1-Click Button |
@@ -129,6 +165,12 @@ Port 5173 is in use, trying another one...
    Double-click `launch.bat` or run:
    ```bash
    npm start
+   ```
+
+4. **Start the Terminal Sentinel Microservice**:
+   Double-click `launch-sentinel.bat` or run:
+   ```bash
+   npm run sentinel
    ```
 
 ### Running in Web Mode (Optional)

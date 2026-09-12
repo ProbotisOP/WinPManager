@@ -10,7 +10,14 @@
     "dev": "concurrently -k \"npm run dev:server\" \"npm run dev:vite\" \"npm run dev:electron\"",
     "web": "concurrently -k \"npm run dev:server\" \"npm run dev:vite\"",
     "build": "vite build",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "npm run build && electron-builder --config electron-builder.json",
+    "dist:portable": "npm run build && electron-builder --config electron-builder.json --win portable",
+    "dist:nsis": "npm run build && electron-builder --config electron-builder.json --win nsis",
+    "sentinel": "node microservice/sentinel.cjs"
+  },
+  "bin": {
+    "winp": "./bin/winp.cjs"
   },
   "author": "ProbotisOP (https://github.com/ProbotisOP)",
   "homepage": "https://github.com/ProbotisOP/WinPManager",
@@ -40,6 +47,7 @@
     "concurrently": "^10.0.5",
     "cross-env": "^10.1.0",
     "electron": "^44.3.0",
+    "electron-builder": "^26.15.3",
     "postcss": "^8.5.28",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
